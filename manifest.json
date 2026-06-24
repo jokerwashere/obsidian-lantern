@@ -1,0 +1,11 @@
+{
+	"id": "lantern",
+	"name": "Lantern",
+	"version": "1.5.1",
+	"minAppVersion": "1.7.2",
+	"description": "Local semantic search and a grounded, cited chat agent for your vault \u2014 powered by a locally-installed qmd. Requires the qmd CLI.",
+	"author": "Bartosz Porzezinski",
+	"authorUrl": "https://github.com/jokerwashere",
+	"fundingUrl": "https://buymeacoffee.com/blueshift",
+	"isDesktopOnly": true
+}
