@@ -1,0 +1,988 @@
+/* Lantern Plugin Styles */
+
+.lantern-view {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding: var(--size-4-2);
+	gap: var(--size-4-1);
+}
+
+/* Scrollable content area (results or chat transcript) */
+.lantern-content {
+	flex: 1;
+	min-height: 0;
+	overflow-y: auto;
+	padding-right: var(--size-4-1);
+	/* Allow selecting/copying results and chat text (Obsidian chrome blocks it) */
+	user-select: text;
+	-webkit-user-select: text;
+	cursor: auto;
+}
+
+.lantern-statusbar {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	min-height: 1.2em;
+	padding: 0 var(--size-4-1);
+}
+
+/* ---------------------------------------------------------------- Results */
+.lantern-search-results {
+	display: flex;
+	flex-direction: column;
+	gap: var(--size-4-2);
+}
+
+.lantern-result {
+	padding: var(--size-4-3);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-m);
+	background: var(--background-secondary);
+	transition: border-color 0.15s ease;
+}
+.lantern-result:hover {
+	border-color: var(--interactive-accent);
+}
+.lantern-result-header {
+	display: flex;
+	justify-content: space-between;
+	gap: var(--size-4-2);
+	margin-bottom: var(--size-4-1);
+}
+.lantern-result-path {
+	color: var(--text-accent);
+	font-size: var(--font-ui-small);
+	font-weight: var(--font-medium);
+	cursor: pointer;
+	word-break: break-all;
+}
+.lantern-result-path:hover {
+	text-decoration: underline;
+}
+.lantern-result-breadcrumb {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	margin-bottom: var(--size-4-1);
+	padding-left: var(--size-4-1);
+	border-left: 2px solid var(--background-modifier-border);
+}
+.lantern-result-score {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	margin-bottom: var(--size-4-1);
+}
+.lantern-result-snippet {
+	color: var(--text-normal);
+	font-size: var(--font-ui-small);
+	line-height: 1.5;
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+.lantern-no-results {
+	text-align: center;
+	padding: var(--size-4-8);
+	color: var(--text-muted);
+}
+
+/* ------------------------------------------------------------------- Chat */
+.lantern-chat-transcript {
+	display: flex;
+	flex-direction: column;
+	gap: var(--size-4-2);
+}
+.lantern-chat-hint {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	padding: var(--size-4-2);
+	background: var(--background-secondary);
+	border-radius: var(--radius-m);
+}
+.lantern-chat-msg {
+	padding: var(--size-4-2) var(--size-4-3);
+	border-radius: var(--radius-l);
+	font-size: var(--font-ui-small);
+	line-height: 1.5;
+}
+.lantern-chat-user {
+	align-self: flex-end;
+	max-width: 90%;
+	background: var(--interactive-accent);
+	color: var(--text-on-accent);
+	white-space: pre-wrap;
+}
+.lantern-chat-assistant {
+	background: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+}
+.lantern-chat-status {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	font-style: italic;
+}
+.lantern-chat-trace {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin: var(--size-4-1) 0;
+}
+
+/* Collapsible tool call: friendly summary collapsed, raw details when unfolded */
+.lantern-tool {
+	font-size: var(--font-ui-smaller);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+	background: var(--background-secondary);
+	overflow: hidden;
+}
+.lantern-tool-summary {
+	display: flex;
+	align-items: center;
+	gap: var(--size-4-1);
+	padding: 4px 8px;
+	cursor: pointer;
+	color: var(--text-muted);
+	list-style: none;
+}
+.lantern-tool-summary::-webkit-details-marker {
+	display: none;
+}
+.lantern-tool-summary:hover {
+	color: var(--text-normal);
+	background: var(--background-modifier-hover);
+}
+.lantern-tool-caret {
+	display: inline-flex;
+	color: var(--text-faint);
+	transition: transform 0.12s ease;
+}
+.lantern-tool[open] .lantern-tool-caret {
+	transform: rotate(90deg);
+}
+.lantern-tool-icon {
+	display: inline-flex;
+	color: var(--text-accent);
+}
+.lantern-tool-caret .svg-icon {
+	width: 12px;
+	height: 12px;
+}
+.lantern-tool-icon .svg-icon {
+	width: 13px;
+	height: 13px;
+}
+.lantern-tool-label {
+	color: var(--text-normal);
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.lantern-tool-outcome {
+	margin-left: auto;
+	padding-left: var(--size-4-2);
+	color: var(--text-faint);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+.lantern-tool-outcome.is-error {
+	color: var(--text-error);
+}
+.lantern-tool[open] .lantern-tool-summary {
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+.lantern-tool-body {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 8px;
+}
+.lantern-tool-tech {
+	font-family: var(--font-monospace);
+	color: var(--text-accent);
+}
+.lantern-tool-pre {
+	margin: 0;
+	padding: 6px 8px;
+	background: var(--background-primary);
+	border-radius: var(--radius-s);
+	font-family: var(--font-monospace);
+	font-size: var(--font-ui-smaller);
+	line-height: 1.45;
+	white-space: pre-wrap;
+	word-break: break-word;
+	color: var(--text-muted);
+	max-height: 220px;
+	overflow: auto;
+}
+.lantern-chat-answer > :first-child {
+	margin-top: 0;
+}
+.lantern-chat-answer > :last-child {
+	margin-bottom: 0;
+}
+.lantern-chat-error {
+	color: var(--text-error);
+	font-size: var(--font-ui-small);
+}
+
+/* ----------------------------------------------------- Modern input box */
+.lantern-input-area {
+	position: relative; /* anchors the autocomplete popover */
+	padding-top: var(--size-4-1);
+}
+
+/* #tag / [[link autocomplete popover (opens above the input box) */
+.lantern-suggest {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 100%;
+	margin-bottom: 6px;
+	max-height: 220px;
+	overflow-y: auto;
+	padding: 4px;
+	background: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 12px;
+	box-shadow: 0 4px 18px rgba(0, 0, 0, 0.20);
+	z-index: 30;
+}
+.lantern-suggest-item {
+	display: flex;
+	align-items: center;
+	gap: var(--size-4-2);
+	padding: 5px 9px;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: var(--font-ui-small);
+	color: var(--text-normal);
+}
+.lantern-suggest-item:hover,
+.lantern-suggest-item.is-active {
+	background: var(--background-modifier-hover);
+}
+.lantern-suggest-icon {
+	display: inline-flex;
+	flex-shrink: 0;
+	color: var(--text-accent);
+}
+.lantern-suggest-icon .svg-icon {
+	width: 14px;
+	height: 14px;
+}
+.lantern-suggest-label {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.lantern-suggest-sub {
+	flex-shrink: 0;
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+}
+
+.lantern-input-box {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 10px 12px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 16px;
+	background: var(--background-primary);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.lantern-input-box:focus-within {
+	border-color: var(--interactive-accent);
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.13);
+}
+
+/* Neutralize Obsidian's default control chrome inside the box (scoped under
+   .lantern-view so specificity beats core form-field styles on its own) */
+.lantern-view .lantern-input-box button,
+.lantern-view .lantern-input-box textarea {
+	box-shadow: none;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.lantern-view textarea.lantern-input {
+	width: 100%;
+	border: none;
+	outline: none;
+	background: transparent;
+	color: var(--text-normal);
+	font-family: inherit;
+	font-size: var(--font-ui-medium);
+	line-height: 1.45;
+	resize: none;
+	max-height: 200px;
+	overflow-y: auto;
+	padding: 2px 4px 0;
+}
+.lantern-view textarea.lantern-input:focus {
+	box-shadow: none;
+}
+.lantern-input::placeholder {
+	color: var(--text-faint);
+}
+
+.lantern-input-actions {
+	display: flex;
+	align-items: center;
+	gap: var(--size-4-2);
+}
+
+/* Search/Chat segmented toggle */
+.lantern-seg {
+	display: inline-flex;
+	padding: 3px;
+	gap: 2px;
+	background: var(--background-secondary);
+	border-radius: 10px;
+}
+.lantern-seg-btn {
+	border: none;
+	background: transparent;
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	font-weight: var(--font-medium);
+	padding: 4px 12px;
+	border-radius: 7px;
+	cursor: pointer;
+	transition: background 0.15s ease, color 0.15s ease;
+}
+.lantern-seg-btn:hover {
+	color: var(--text-normal);
+}
+.lantern-seg-btn.is-active {
+	background: var(--interactive-accent);
+	color: var(--text-on-accent);
+	font-weight: var(--font-semibold);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+.lantern-seg-btn.is-active:hover {
+	/* keep the accent on hover (the generic :hover would darken the text) */
+	background: var(--interactive-accent-hover);
+	color: var(--text-on-accent);
+}
+
+/* Mode controls (pushed to the right) */
+.lantern-controls {
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+	gap: var(--size-4-2);
+}
+.lantern-controls-group {
+	display: flex;
+	align-items: center;
+	gap: var(--size-4-1);
+}
+
+.lantern-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+	background: var(--background-secondary);
+	border: none;
+	border-radius: 8px;
+	padding: 5px 9px;
+	cursor: pointer;
+	transition: background 0.15s ease, color 0.15s ease;
+}
+.lantern-chip:hover {
+	background: var(--background-modifier-hover);
+	color: var(--text-normal);
+}
+.lantern-dropdown-icon {
+	display: inline-flex;
+	color: var(--text-accent);
+}
+.lantern-dropdown-caret {
+	display: inline-flex;
+	opacity: 0.55;
+}
+.lantern-dropdown-icon .svg-icon,
+.lantern-dropdown-caret .svg-icon {
+	width: 13px;
+	height: 13px;
+}
+.lantern-toggle.is-on {
+	color: var(--text-on-accent);
+	background: var(--interactive-accent);
+}
+.lantern-toggle.is-on:hover {
+	color: var(--text-on-accent);
+	background: var(--interactive-accent-hover);
+}
+.lantern-icon-chip {
+	justify-content: center;
+	padding: 5px 6px;
+}
+.lantern-icon-chip .svg-icon {
+	width: 14px;
+	height: 14px;
+}
+
+/* Circular submit — the input box's PRIMARY action: accent-filled at rest.
+   Selector carries `button.` + an ancestor class on purpose: Obsidian core
+   styles buttons via `button:not(.clickable-icon)` (background-color +
+   box-shadow), which outranks a bare `.lantern-send` and made the idle state
+   look gray/disabled. */
+.lantern-view button.lantern-send {
+	flex-shrink: 0;
+	width: 32px;
+	height: 32px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	border-radius: 50%;
+	background-color: var(--interactive-accent);
+	color: var(--text-on-accent);
+	box-shadow: none;
+	cursor: pointer;
+	padding: 0;
+	transition: background-color 0.15s ease, transform 0.1s ease;
+}
+.lantern-view button.lantern-send:hover {
+	background-color: var(--interactive-accent-hover);
+}
+.lantern-view button.lantern-send:active {
+	transform: scale(0.94);
+}
+.lantern-view button.lantern-send .svg-icon {
+	width: 16px;
+	height: 16px;
+	color: var(--text-on-accent);
+}
+
+/* --------------------------------------------------------- Settings page */
+/* Scoped to .lantern-settings so nothing leaks into other plugins' settings. */
+
+/* Status overview card */
+.lantern-settings .lantern-overview {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-m);
+	background: var(--background-secondary);
+	margin-bottom: var(--size-4-5);
+	overflow: hidden;
+}
+.lantern-settings .lantern-stat {
+	display: flex;
+	align-items: center;
+	gap: var(--size-4-3);
+	padding: var(--size-4-3) var(--size-4-4);
+}
+.lantern-settings .lantern-stat + .lantern-stat {
+	border-top: 1px solid var(--background-modifier-border);
+}
+.lantern-settings .lantern-stat-dot {
+	flex-shrink: 0;
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+	background: var(--text-faint);
+	box-shadow: 0 0 0 3px var(--background-modifier-border);
+}
+.lantern-settings .lantern-stat-dot.is-ok {
+	background: var(--color-green);
+	box-shadow: 0 0 0 3px rgba(var(--color-green-rgb, 60, 170, 90), 0.18);
+}
+.lantern-settings .lantern-stat-dot.is-fail {
+	background: var(--color-red);
+	box-shadow: 0 0 0 3px rgba(var(--color-red-rgb, 220, 80, 80), 0.18);
+}
+.lantern-settings .lantern-stat-dot.is-checking {
+	background: var(--color-yellow);
+	animation: lantern-pulse 1s ease-in-out infinite;
+}
+@keyframes lantern-pulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.3; }
+}
+.lantern-settings .lantern-stat-text {
+	flex: 1;
+	min-width: 0;
+}
+.lantern-settings .lantern-stat-label {
+	font-size: var(--font-ui-small);
+	font-weight: var(--font-medium);
+	color: var(--text-normal);
+	line-height: 1.3;
+}
+.lantern-settings .lantern-stat-detail {
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.lantern-settings .lantern-stat-btn {
+	flex-shrink: 0;
+	font-size: var(--font-ui-smaller);
+	padding: 4px 12px;
+	box-shadow: none;
+}
+
+/* Accented section headings */
+.lantern-settings .setting-item-heading {
+	border-top: none;
+	margin-top: var(--size-4-4);
+	padding: var(--size-4-2) 0 var(--size-4-2) var(--size-4-3);
+	border-left: 3px solid var(--interactive-accent);
+}
+.lantern-settings .setting-item-heading .setting-item-name {
+	color: var(--text-accent);
+	font-size: var(--font-ui-medium);
+	font-weight: var(--font-semibold);
+	letter-spacing: 0.01em;
+}
+.lantern-settings .setting-item-heading .setting-item-description {
+	color: var(--text-muted);
+}
+
+/* Full-width system-prompt editor */
+.lantern-settings .lantern-prompt-status {
+	margin-top: var(--size-4-1);
+}
+.lantern-prompt-missing {
+	color: var(--text-warning);
+}
+
+/* Sub-screen back link + per-prompt editor textarea (Edit prompts screen) */
+.lantern-settings .lantern-settings-back {
+	display: inline-block;
+	margin-bottom: var(--size-4-2);
+	color: var(--text-muted);
+	cursor: pointer;
+	font-size: var(--font-ui-small);
+}
+.lantern-settings .lantern-settings-back:hover {
+	color: var(--text-normal);
+	text-decoration: underline;
+}
+.lantern-settings textarea.lantern-prompt-editor {
+	display: block;
+	width: 100%;
+	margin-top: var(--size-4-1);
+	font-family: var(--font-monospace);
+	font-size: var(--font-ui-smaller);
+	line-height: 1.4;
+	resize: vertical;
+}
+/* Read-only display input (e.g. the picked collections): visible but not editable. */
+.lantern-settings input.lantern-readonly-input {
+	color: var(--text-muted);
+	cursor: default;
+}
+
+/* One block per prompt: separate the textarea/footnote from the next prompt's header. */
+.lantern-settings .lantern-prompt-block {
+	margin-bottom: var(--size-4-6);
+	padding-bottom: var(--size-4-4);
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+.lantern-settings .lantern-prompt-setting {
+	display: block;
+}
+.lantern-settings .lantern-prompt-setting .setting-item-control {
+	display: block;
+	margin-top: var(--size-4-2);
+}
+.lantern-settings .lantern-prompt-setting .setting-item-control .clickable-icon {
+	display: inline-flex;
+	margin-right: var(--size-4-1);
+}
+.lantern-settings .lantern-prompt-input {
+	display: block;
+	width: 100%;
+	margin-top: var(--size-4-2);
+	min-height: 9em;
+	font-family: var(--font-text);
+	font-size: var(--font-ui-small);
+	line-height: 1.5;
+	resize: vertical;
+}
+
+/* ------------------------------------------------------------ Streaming */
+.lantern-chat-stream {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+.lantern-chat-stream::after {
+	content: "▍";
+	color: var(--text-accent);
+	animation: lantern-caret 1s steps(2) infinite;
+}
+@keyframes lantern-caret {
+	50% { opacity: 0; }
+}
+.lantern-chat-stopped {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	font-style: italic;
+	margin-top: var(--size-4-1);
+}
+
+/* Per-answer context-usage footer + global (chat-bar) context meter */
+.lantern-chat-usage {
+	color: var(--text-faint);
+	font-size: var(--font-ui-smaller);
+}
+.lantern-chat-usage-warn {
+	color: var(--text-warning);
+}
+
+/* Brief highlight when a footnote ref/back-ref is clicked in chat */
+.lantern-footnote-flash {
+	animation: lantern-footnote-flash 1.2s ease;
+	border-radius: var(--radius-s);
+}
+@keyframes lantern-footnote-flash {
+	from {
+		background: var(--text-highlight-bg);
+	}
+	to {
+		background: transparent;
+	}
+}
+.lantern-ctx-meter {
+	flex: none;
+	align-self: center;
+	margin-right: var(--size-4-2);
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	cursor: default;
+	/* Pie filling clockwise from 12 o'clock to the used %. */
+	background: conic-gradient(
+		var(--interactive-accent) calc(var(--lantern-ctx-pct, 0) * 1%),
+		var(--background-modifier-border) calc(var(--lantern-ctx-pct, 0) * 1%)
+	);
+}
+.lantern-ctx-meter.is-high {
+	background: conic-gradient(
+		var(--text-warning) calc(var(--lantern-ctx-pct, 0) * 1%),
+		var(--background-modifier-border) calc(var(--lantern-ctx-pct, 0) * 1%)
+	);
+}
+
+/* Reasoning trace block */
+.lantern-reasoning-pre {
+	max-height: 12em;
+	overflow-y: auto;
+}
+
+/* Answer's bottom row: context usage (left) + action icons (right), aligned at the base */
+.lantern-chat-footer {
+	display: flex;
+	align-items: flex-end;
+	gap: var(--size-4-2);
+	margin-top: var(--size-4-1);
+}
+
+/* Answer actions (delete chat · clear trace · retry · copy) + error retry */
+.lantern-chat-actions {
+	display: flex;
+	gap: var(--size-4-1);
+	margin-left: auto; /* pin to the right edge of the footer (flex item) */
+	justify-content: flex-end; /* right-align the lone chip in the standalone error case */
+}
+
+/* Answer icons are revealed on hover of the bubble; the error-retry chip stays visible */
+.lantern-actions-hover {
+	opacity: 0;
+	transition: opacity 0.12s ease;
+}
+.lantern-chat-assistant:hover .lantern-actions-hover,
+.lantern-actions-hover:focus-within {
+	opacity: 1;
+}
+
+/* Stop state of the send button */
+.lantern-view button.lantern-send.is-stop {
+	background-color: var(--background-modifier-error);
+}
+.lantern-view button.lantern-send.is-stop:hover {
+	background-color: var(--background-modifier-error-hover);
+}
+
+/* Blocked send: chat isn't ready (qmd + LLM unverified) — see the setup card */
+.lantern-view button.lantern-send.is-disabled {
+	opacity: 0.45;
+	cursor: not-allowed;
+	box-shadow: none;
+}
+
+/* ------------------------------------------------------------ Setup card */
+.lantern-setup-card {
+	border: 1px solid var(--background-modifier-border);
+	border-left: 3px solid var(--interactive-accent);
+	border-radius: var(--radius-m);
+	background: var(--background-secondary);
+	padding: var(--size-4-3);
+	margin-bottom: var(--size-4-2);
+}
+.lantern-setup-head {
+	display: flex;
+	align-items: center;
+	gap: var(--size-4-2);
+	font-weight: var(--font-semibold);
+	margin-bottom: var(--size-4-1);
+}
+.lantern-setup-icon .svg-icon {
+	width: 16px;
+	height: 16px;
+	color: var(--interactive-accent);
+}
+.lantern-setup-text {
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+	margin-bottom: var(--size-4-2);
+}
+.lantern-setup-actions {
+	display: flex;
+	gap: var(--size-4-2);
+	flex-wrap: wrap;
+}
+.lantern-setup-btn {
+	font-size: var(--font-ui-small);
+	padding: var(--size-4-1) var(--size-4-3);
+	border-radius: var(--radius-s);
+	background: var(--interactive-normal);
+	cursor: pointer;
+}
+.lantern-setup-btn:hover {
+	background: var(--interactive-hover);
+}
+/* Secondary action (e.g. the external "Setup guide" link) */
+.lantern-setup-btn.lantern-setup-btn-ghost {
+	background: transparent;
+	color: var(--text-muted);
+}
+.lantern-setup-btn.lantern-setup-btn-ghost:hover {
+	background: var(--interactive-hover);
+	color: var(--text-normal);
+}
+
+/* Compact rows for tag-only listings */
+.lantern-result-compact {
+	padding: var(--size-4-2) var(--size-4-3);
+}
+
+/* Invalid settings input */
+.lantern-settings input.lantern-input-invalid {
+	border-color: var(--background-modifier-error);
+	box-shadow: 0 0 0 1px var(--background-modifier-error);
+}
+
+/* ------------------------------------------------------- Write confirm card */
+.lantern-write-card {
+	border: 1px solid var(--background-modifier-border);
+	border-left: 3px solid var(--color-orange);
+	border-radius: var(--radius-m);
+	background: var(--background-secondary);
+	padding: var(--size-4-2) var(--size-4-3);
+	margin: var(--size-4-2) 0;
+}
+.lantern-write-head {
+	display: flex;
+	align-items: center;
+	gap: var(--size-4-2);
+	font-weight: var(--font-medium);
+	font-size: var(--font-ui-small);
+	margin-bottom: var(--size-4-1);
+}
+.lantern-write-icon .svg-icon {
+	width: 14px;
+	height: 14px;
+	color: var(--color-orange);
+}
+.lantern-write-preview {
+	max-height: 10em;
+	overflow-y: auto;
+}
+.lantern-setup-btn.mod-cta {
+	background: var(--interactive-accent);
+	color: var(--text-on-accent);
+}
+
+/* Template editor rows: delete button in its own left column (pinned to the
+   top), name + prompt fields stacked on the right. */
+.lantern-settings .lantern-template-row {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--size-4-2);
+	padding: var(--size-4-2) 0;
+	border-top: 1px solid var(--background-modifier-border);
+}
+.lantern-settings .lantern-template-delete {
+	flex-shrink: 0;
+	padding-top: 2px;
+}
+.lantern-settings .lantern-template-fields {
+	display: flex;
+	flex-direction: column;
+	gap: var(--size-4-1);
+	flex: 1;
+	min-width: 0;
+}
+.lantern-settings .lantern-template-name,
+.lantern-settings .lantern-template-prompt {
+	width: 100%;
+}
+.lantern-settings .lantern-template-prompt {
+	resize: vertical;
+	font-family: inherit;
+}
+
+/* --------------------------------------------------- Trace: args & results */
+.lantern-arg-list {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	margin: var(--size-4-1) 0;
+}
+.lantern-arg-row {
+	display: flex;
+	gap: var(--size-4-2);
+	font-size: var(--font-ui-smaller);
+	align-items: baseline;
+}
+.lantern-arg-key {
+	color: var(--text-muted);
+	min-width: 64px;
+	flex-shrink: 0;
+	font-family: var(--font-monospace);
+}
+.lantern-arg-value {
+	color: var(--text-normal);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.lantern-trace-result {
+	display: flex;
+	flex-direction: column;
+	gap: var(--size-4-1);
+	margin-top: var(--size-4-1);
+	font-size: var(--font-ui-smaller);
+}
+.lantern-trace-hit,
+.lantern-trace-group {
+	padding: var(--size-4-1) var(--size-4-2);
+	border-left: 2px solid var(--background-modifier-border);
+}
+.lantern-trace-row {
+	display: flex;
+	align-items: baseline;
+	gap: var(--size-4-2);
+	min-width: 0;
+}
+.lantern-trace-path {
+	color: var(--text-accent);
+	cursor: pointer;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.lantern-trace-path:hover {
+	text-decoration: underline;
+}
+.lantern-trace-path.is-static {
+	color: var(--text-normal);
+	cursor: default;
+}
+.lantern-trace-path.is-static:hover {
+	text-decoration: none;
+}
+.lantern-trace-badge {
+	font-size: 10px;
+	padding: 0 5px;
+	border-radius: 8px;
+	background: var(--background-modifier-border);
+	color: var(--text-muted);
+	flex-shrink: 0;
+}
+.lantern-trace-sub {
+	color: var(--text-faint);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.lantern-trace-snippet {
+	color: var(--text-muted);
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+.lantern-trace-meta {
+	color: var(--text-muted);
+	font-variant: small-caps;
+	letter-spacing: 0.03em;
+}
+.lantern-trace-note {
+	color: var(--text-muted);
+	font-style: italic;
+}
+.lantern-trace-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--size-4-1);
+}
+.lantern-trace-tag {
+	font-size: 10px;
+	padding: 1px 7px;
+	border-radius: 10px;
+	background: var(--tag-background, var(--background-modifier-border));
+	color: var(--text-accent);
+}
+.lantern-trace-task {
+	display: flex;
+	align-items: baseline;
+	gap: var(--size-4-2);
+	padding-left: var(--size-4-2);
+}
+.lantern-task-box {
+	color: var(--text-muted);
+	flex-shrink: 0;
+}
+.lantern-task-box.is-done {
+	color: var(--color-green);
+}
+.lantern-trace-task-text {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.lantern-trace-heading {
+	font-family: var(--font-monospace);
+}
+
+/* Per-collection group header in grouped search results */
+.lantern-result-group {
+	font-size: var(--font-ui-smaller);
+	font-weight: var(--font-semibold);
+	color: var(--text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	margin: var(--size-4-3) 0 var(--size-4-1);
+	padding-bottom: 2px;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+.lantern-result-group:first-child {
+	margin-top: 0;
+}
