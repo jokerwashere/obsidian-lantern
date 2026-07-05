@@ -1,0 +1,27 @@
+# Build output
+main.js
+*.js.map
+
+# npm
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+.zed/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage/
+
+# Cache
+.cache/
+
+# Claude
+.claude/
+
+# Obsidian
+data.json
