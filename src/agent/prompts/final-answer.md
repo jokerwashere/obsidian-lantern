@@ -1,0 +1,1 @@
+You have reached the tool-use limit. Answer the question now from what you've gathered, citing sources with footnotes ([^1] in the text, [^1]: link at the end). If you lack enough information, say so.
